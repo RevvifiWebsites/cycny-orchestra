@@ -17,23 +17,31 @@
   margin: 0;
   margin-top: 100vh;
 }
-
+#c {
+  display:flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  margin-left:4px;
+}
+#c p {
+  margin:0;
+  font-size:14px;
+}
 html,
 body {
   margin: 0;
   padding: 0;
-  font-family: "DM Sans", sans-serif;
+  font-family: "Merriweather", serif;
 }
 
 .navBar {
   position: relative;
-  background-color: rgb(33, 33, 33);
-  height: 10vh;
+  background-color: #FFFBE8;
+  height: 9vh;
   width: 100%;
   top: 0;
-  color: white;
+  color: #B74921;
   display: flex;
-  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 2px 2px 0 #000;
   display: flex;
   z-index: 50;
   align-items: center;
