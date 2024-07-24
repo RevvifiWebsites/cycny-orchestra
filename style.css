@@ -33,7 +33,24 @@ body {
   padding: 0;
   font-family: "Merriweather", serif;
 }
-
+#navlinks {
+  margin-right:0;
+  margin-left:auto;
+  flex-direction: row;
+  display:flex;
+}
+#headh {
+  height:91vh;
+  width:80%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  
+}
+#navlinks p {
+  margin-right:50px;
+  font-weight: 400;
+}
 .navBar {
   position: relative;
   background-color: #FFFBE8;
@@ -62,6 +79,6 @@ body {
   align-items: center;
   display: flex;
   flex-direction: row;
-  height: 100vh;
+  height: 91vh;
   z-index: 5;
 }
