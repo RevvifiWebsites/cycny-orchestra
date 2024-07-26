@@ -9,7 +9,16 @@
 
 }
 
-
+#citems {
+  display:flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width:60%
+}
+.citem {
+  flex:1
+}
 
 .main-content {
   position: relative;
