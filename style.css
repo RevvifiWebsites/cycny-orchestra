@@ -14,10 +14,11 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  width:60%
+  width:70%
 }
 .citem {
-  flex:1
+  flex:1;
+  text-align: center
 }
 
 .main-content {
