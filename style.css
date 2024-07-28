@@ -117,7 +117,14 @@ body {
   margin-top:5px;
 }
 .bioopen {
-  
+  background:none;
+  outline:none;
+  border:none;
+  color:gray;
+  font-size:15px;
+}
+.bioopen:hover {
+  color:#B74921;
 }
 .subinfo {
   font-size: 14px;
