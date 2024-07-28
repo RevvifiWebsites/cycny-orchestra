@@ -10,14 +10,15 @@
 }
 
 #citems {
-  display:flex;
+  display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  width:70%
+  width: 70%
 }
+
 .citem {
-  flex:1;
+  flex: 1;
   text-align: center
 }
 
@@ -27,64 +28,112 @@
   margin: 0;
   margin-top: 91vh;
 }
+
 #abtct {
-  display:flex;
+  display: flex;
   flex-direction: column;
   align-items: center;
-  width:70%;
+  width: 70%;
 }
+
+#memberscontent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 70%;
+}
+
 #abtct p {
-  margin:0;
+  margin: 0;
   font-weight: 300;
-  font-size:18px;
+  font-size: 18px;
 }
+
 #c {
-  display:flex;
+  display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  margin-left:4px;
+  margin-left: 4px;
 }
+
 #c p {
-  margin:0;
-  font-size:14px;
+  margin: 0;
+  font-size: 14px;
 }
+
 html,
 body {
   margin: 0;
   padding: 0;
   font-family: "Merriweather", serif;
 }
+
 #navlinks {
-  margin-right:0;
-  margin-left:auto;
+  margin-right: 0;
+  margin-left: auto;
   flex-direction: row;
-  display:flex;
+  display: flex;
 }
+
 #headh {
-  height:100vh;
-  width:80%;
+  height: 100vh;
+  width: 80%;
   display: flex;
   align-items: center;
   justify-content: flex-start;
 
 }
+
 #head-div {
-  padding:30px;
-  margin:0;
+  padding: 30px;
+  margin: 0;
   text-align: left;
-  border-radius:3px;
+  border-radius: 3px;
   flex-direction: column;
-  height:auto;
-  width:350px;
-  display:flex;
+  height: auto;
+  width: 350px;
+  display: flex;
   align-items: center;
   justify-content: flex-start;
   background-color: rgba(53, 53, 53, 0.714);
 }
+
+#instructors {
+  width: 90%;
+  display: flex;
+  flex-direction: row;
+}
+
 #navlinks p {
-  margin-right:50px;
+  margin-right: 50px;
   font-weight: 400;
 }
+.info {
+  font-size:14px;
+}
+.cname {
+  font-size: 25px;
+  margin:0;
+  margin-top:5px;
+}
+.bioopen {
+  
+}
+.subinfo {
+  font-size: 14px;
+  margin:0;
+  margin-bottom:10px
+}
+
+.cinp {
+  width: 50%;
+  height: 100vh;
+  padding:5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .navBar {
   position: relative;
   background-color: #FFFBE8;
