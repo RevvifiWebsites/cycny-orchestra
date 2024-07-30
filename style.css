@@ -43,6 +43,13 @@
   width: 70%;
 }
 
+#pcontent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 70%;
+}
+
 #abtct p {
   margin: 0;
   font-weight: 300;
@@ -108,35 +115,40 @@ body {
   margin-right: 50px;
   font-weight: 400;
 }
+
 .info {
-  font-size:14px;
+  font-size: 14px;
 }
+
 .cname {
   font-size: 25px;
-  margin:0;
-  margin-top:5px;
+  margin: 0;
+  margin-top: 5px;
 }
+
 .bioopen {
-  background:none;
-  outline:none;
-  border:none;
-  margin-bottom:10px;
-  color:gray;
-  font-size:15px;
+  background: none;
+  outline: none;
+  border: none;
+  margin-bottom: 10px;
+  color: gray;
+  font-size: 15px;
 }
+
 .bioopen:hover {
-  color:#B74921;
+  color: #B74921;
 }
+
 .subinfo {
   font-size: 14px;
-  margin:0;
-  margin-bottom:10px
+  margin: 0;
+  margin-bottom: 10px
 }
 
 .cinp {
   width: 50%;
   height: auto;
-  padding:5px;
+  padding: 5px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -172,4 +184,20 @@ body {
   flex-direction: row;
   height: 96vh;
   z-index: 5;
+}
+
+.phalf {
+  width:50%;
+  display:flex;
+  align-items: center;
+  flex-direction: column;
+}
+.phalf p {
+  margin:0;
+  margin-bottom:10px;
+}
+.pfull {
+  width:100%;
+  display: flex;
+  flex-direction: row;
 }
