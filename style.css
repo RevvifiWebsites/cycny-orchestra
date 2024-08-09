@@ -105,6 +105,12 @@ body {
   background-color: rgba(53, 53, 53, 0.714);
 }
 
+#members {
+  width: 90%;
+  display: flex;
+  flex-direction: row;
+}
+
 #instructors {
   width: 90%;
   display: flex;
@@ -152,6 +158,16 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  text-align: center;
+}
+
+#minp {
+  width: 50%;
+  height: auto;
+  padding: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .navBar {
@@ -187,17 +203,19 @@ body {
 }
 
 .phalf {
-  width:50%;
-  display:flex;
+  width: 50%;
+  display: flex;
   align-items: center;
   flex-direction: column;
 }
+
 .phalf p {
-  margin:0;
-  margin-bottom:10px;
+  margin: 0;
+  margin-bottom: 10px;
 }
+
 .pfull {
-  width:100%;
+  width: 100%;
   display: flex;
   flex-direction: row;
 }
