@@ -140,6 +140,21 @@ body {
   color: gray;
   font-size: 15px;
 }
+.medit {
+  padding:2px;
+  border:solid 1px black;
+  width:30%;
+  max-width:500px;
+}
+.medit h3 {
+  margin:0;
+}
+.medit input[type=text] {
+  margin-left:2px;
+  margin-right:2px;
+  width: 97%;
+  
+}
 
 .bioopen:hover {
   color: #B74921;

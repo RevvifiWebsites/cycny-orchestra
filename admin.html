@@ -21,7 +21,7 @@
   <script type="module">
     // Import the functions you need from the SDKs you need
     import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js";
-    import { getFirestore } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore.js";
+    import { getFirestore, collection, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore.js";
     import { getAuth, signInWithPopup, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-auth.js";
 
     // TODO: Add SDKs for Firebase products that you want to use
@@ -42,6 +42,11 @@
     const db = getFirestore(app);
     const provider = new GoogleAuthProvider();
     const auth = getAuth(app);
+    async function loadData() {
+      const docRef = doc(db, "members", "violin1");
+      const docSnap = await getDoc(docRef);
+      console.log(docSnap.data())
+    }
     auth.onAuthStateChanged(function (user) {
       const ALLOWLIST = ["wilburw2026@gmail.com"]
 
@@ -49,6 +54,7 @@
         if (ALLOWLIST.includes(user.email)) {
           $("#info").html("Signed in.")
           $("#main").show()
+          loadData()
         } else {
           $("#info").html("Unauthorized.")
         }
@@ -63,14 +69,12 @@
             if (ALLOWLIST.includes(user.email)) {
               $("#info").html("Signed in.")
               $("#main").show()
+              loadData()
+
             } else {
               $("#info").html("Unauthorized.")
             }
-
-            // IdP data available using getAdditionalUserInfo(result)
-            // ...
           }).catch((error) => {
-            // Handle Errors here.
             const errorCode = error.code;
             const errorMessage = error.message;
             // The email of the user's account used.
@@ -95,6 +99,12 @@
 
     <div id="main" style="display:none">
       <h2>Edit Members</h1>
+        <div id="members">
+          <div class="medit">
+            <h3>Violin 1</h3>
+            <input type="text">
+          </div>
+        </div>
     </div>
   </main>
   <script src="./index.js"></script>
