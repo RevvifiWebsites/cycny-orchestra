@@ -37,6 +37,7 @@
     const db = getFirestore(app);
     const provider = new GoogleAuthProvider();
     const auth = getAuth(app);
+    var members = [];
     async function loadData() {
       const q = query(collection(db, "members"));
 
@@ -44,14 +45,32 @@
       querySnapshot.forEach((doc) => {
         // doc.data() is never undefined for query doc snapshots
         const docdata = doc.data();
+        members.push(doc.id)
+        var mcount = String(docdata.members).split(",").length
         $("#members").append(`
           <div class="memberitem">
-            <p>${docdata.name}</p>
-            <input type="text"/>
+            <p id="mbc${doc.id}">${docdata.name} (${mcount})</p>
+            <input id="mbd${doc.id}" type="text" value="${docdata.members}"/>
           </div>
         `)
+        $("#mbd" + doc.id).on('input', function() {
+          console.log('ea')
+          const val = $("#mbd" + doc.id).val();
+          const mcnt = String(val).split(",").length
+          $("#mbc" + doc.id).html(docdata.name + " (" + mcnt + ")")
+
+        })
       });
     }
+
+
+    $("#savembbt").click(function() {
+      for (var item of members) {
+        console.log(item)
+        const newRef = doc(db, 'members', item);
+        setDoc(newRef, { members: $("#mbd" + item).val() }, { merge: true });
+      }
+    })
     auth.onAuthStateChanged(function (user) {
       const ALLOWLIST = ["wilburw2026@gmail.com", "wilburwei.2008@gmail.com"]
 
@@ -104,7 +123,7 @@
 
     <div id="main" style="display:none">
         <h2>Edit Members</h1>
-        <button>Save Members</button>
+        <button id="savembbt">Save Members</button>
         <div id="members">
 
         </div>
