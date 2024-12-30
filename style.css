@@ -90,7 +90,17 @@ body {
   justify-content: flex-start;
 
 }
+.memberitem {
+  display:flex;
+  flex-direction: row;
+  margin-bottom:3px;
+  margin-top:3px;
+}
+.memberitem p {
+  margin:0;
+  margin-right:10px;
 
+}
 #head-div {
   padding: 30px;
   margin: 0;
@@ -108,7 +118,7 @@ body {
 #members {
   width: 90%;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
 }
 
 #instructors {
