@@ -65,11 +65,17 @@
 
 
     $("#savembbt").click(function() {
-      for (var item of members) {
-        console.log(item)
-        const newRef = doc(db, 'members', item);
-        setDoc(newRef, { members: $("#mbd" + item).val() }, { merge: true });
+      try {
+        for (var item of members) {
+          console.log(item)
+          const newRef = doc(db, 'members', item);
+          setDoc(newRef, { members: $("#mbd" + item).val() }, { merge: true });
+        }
+        alert("Members data changed successfully")
+      } catch (e) {
+        alert("An error occured. Reload and try again. ")
       }
+
     })
     auth.onAuthStateChanged(function (user) {
       const ALLOWLIST = ["wilburw2026@gmail.com", "wilburwei.2008@gmail.com"]
