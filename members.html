@@ -222,7 +222,7 @@
         <h1>Our Members</h1>
         <hr style="width:90%">
         <div id="members">
-          <div class="cinp">
+          <div class="cinp" id="c1p">
             <p><span style="font-size:20px;font-weight:800">Violin l</span><br>
               Ian Cheng 郑以恩<br>
               Kara Chan 陈思绮<br>
@@ -276,7 +276,7 @@
             </p>
 
           </div>
-          <div class="cinp">
+          <div class="cinp" id="c2p">
             <p><span style="font-size:20px;font-weight:800">Oboe</span><br>
               Megan Liao 廖婕希<br>
             </p>
@@ -340,6 +340,57 @@
     </div>
 
   </main>
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js";
+    import { getFirestore, collection, doc, setDoc, getDoc, query, getDocs } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore.js";
+    import { getAuth, signInWithPopup, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyD4VyCY86vt6lIPtOH4IXCL0iSMsJl9KSU",
+      authDomain: "cycny-853d8.firebaseapp.com",
+      projectId: "cycny-853d8",
+      storageBucket: "cycny-853d8.firebasestorage.app",
+      messagingSenderId: "107987972415",
+      appId: "1:107987972415:web:f0ed37d7e30858bc31238a"
+    };
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    var data = {};
+    async function loadData() {
+      const q = query(collection(db, "members"));
+      const querySnapshot = await getDocs(q);
+      querySnapshot.forEach((doc) => {
+        const ddata = doc.data();
+        data[ddata["name"]] = ddata["members"];
+      });
+      //Balance the two columns, probably a better way to do this but that's a problem for later
+      var count = 0
+      Object.values(data).map((val) => count+=val.split(",").length+1.3);
+      var ccount = 0;
+      for (var item of Object.keys(data)) {
+        var d = data[item];
+        console.log(d.split(","))
+        const s = d.split(",").map((val) => { return (String(val).trim() + "<br>") });
+        console.log(s);
+        var a = `
+        <p><span style="font-size:20px;font-weight:800">${item}</span><br>
+        ${s.join("")}
+        </p>`
+        console.log(a)
+        if (ccount < count/2) {
+          console.log("column 1");
+        } else {
+          console.log("column 2");
+        }
+
+        ccount+= d.split(",").length + 1.3;
+        console.log(item)
+
+      }
+
+    }
+    loadData();
+  </script>
   <script src="./index.js"></script>
 </body>
 

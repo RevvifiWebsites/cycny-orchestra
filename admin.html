@@ -47,7 +47,7 @@
         const docdata = doc.data();
         members.push(doc.id)
         var mcount = String(docdata.members).split(",").length
-        $("#members").append(`
+        $("#membersdiv").append(`
           <div class="memberitem">
             <p id="mbc${doc.id}">${docdata.name} (${mcount})</p>
             <input id="mbd${doc.id}" type="text" value="${docdata.members}"/>
@@ -131,7 +131,7 @@
         <h2>Edit Members</h1>
         <button id="savembbt">Save Members</button>
         <p style="margin:0;margin-top:3px;margin-bottom:3px;font-size:12px;">Input members in a comma-separated format. Empty sections will not be shown</p>
-        <div id="members">
+        <div id="membersdiv">
 
         </div>
     </div>
