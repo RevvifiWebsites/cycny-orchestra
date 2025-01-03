@@ -223,7 +223,7 @@
         <hr style="width:90%">
         <div id="members">
           <div class="cinp" id="c1p">
-            <p><span style="font-size:20px;font-weight:800">Violin l</span><br>
+            <!-- <p><span style="font-size:20px;font-weight:800">Violin l</span><br>
               Ian Cheng 郑以恩<br>
               Kara Chan 陈思绮<br>
               Wei Tong Yu 余尉仅<br>
@@ -252,11 +252,11 @@
               Eric Liang 梁咏翔<br>
             </p>
             <p><span style="font-size:20px;font-weight:800">Cello</span><br>
-              Hanks Tsai 蔡和伦<br>
+             Hanks Tsai 蔡和伦<br>
               Evan Liang 梁正浩<br>
               Anthony Chen 陈祉轩<br>
               Ioklee Lin 林约理<br>
-              James Hu 胡佑颖<br>
+              James Hu 胡佑颖<br> 
             </p>
             <p><span style="font-size:20px;font-weight:800">Double Bass </span><br>
               Phil Smith<br>
@@ -273,11 +273,11 @@
             </p>
             <p><span style="font-size:20px;font-weight:800">Piccolo</span><br>
               Abigail Loo 卢珊<br>
-            </p>
+            </p> -->
 
           </div>
           <div class="cinp" id="c2p">
-            <p><span style="font-size:20px;font-weight:800">Oboe</span><br>
+            <!-- <p><span style="font-size:20px;font-weight:800">Oboe</span><br>
               Megan Liao 廖婕希<br>
             </p>
             <p><span style="font-size:20px;font-weight:800">Clarinet 1</span><br>
@@ -313,14 +313,13 @@
             <p><span style="font-size:20px;font-weight:800">Percussion</span><br>
               Hanlei Chen 陈涵磊<br>
               Raymond Zhang 章瑞文<br>
-              <!-- ^^the goat -->
               Marseille Chin 秦哲源<br>
               Philip Xia 夏明宇<br>
               Amber Chen 陈金晶<br>
             </p>
             <p><span style="font-size:20px;font-weight:800">Piano</span><br>
               Yasuhiko Fukuoka 福冈康彦<br>
-            </p>
+            </p> -->
 
           </div>
 
@@ -365,7 +364,7 @@
       });
       //Balance the two columns, probably a better way to do this but that's a problem for later
       var count = 0
-      Object.values(data).map((val) => count+=val.split(",").length+1.3);
+      Object.values(data).map((val) => count+=val.split(",").length+2.3);
       var ccount = 0;
       for (var item of Object.keys(data)) {
         var d = data[item];
@@ -378,12 +377,12 @@
         </p>`
         console.log(a)
         if (ccount < count/2) {
-          console.log("column 1");
+          $("#c1p").append(a);
         } else {
-          console.log("column 2");
+          $("#c2p").append(a);
         }
 
-        ccount+= d.split(",").length + 1.3;
+        ccount+= d.split(",").length + 2.3;
         console.log(item)
 
       }
