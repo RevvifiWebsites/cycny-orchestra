@@ -101,6 +101,22 @@ body {
   margin-right:10px;
 
 }
+.fitem {
+  border: solid 1px black;
+  padding:5px;
+  width:300px;
+
+}
+.fitem input[type="text"] {
+  width:200px;
+}
+.fitem textarea {
+  width:270px;
+  resize: none;
+}
+.fitem textarea::placeholder {
+  color:rgb(126, 126, 126);
+}
 #head-div {
   padding: 30px;
   margin: 0;
