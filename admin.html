@@ -17,6 +17,8 @@
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"
     integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
   <script src="https://www.gstatic.com/firebasejs/ui/6.0.1/firebase-ui-auth.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/showdown@2.1.0/dist/showdown.min.js"></script>
+
   <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/6.0.1/firebase-ui-auth.css" />
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js";
@@ -31,7 +33,13 @@
       messagingSenderId: "107987972415",
       appId: "1:107987972415:web:f0ed37d7e30858bc31238a"
     };
+    var converter = new showdown.Converter()
+    let currentlyEditing = null;
+    const convert = () => $("#result").html(converter.makeHtml($("#editor").val()))
+    $("#editor").on("keyup", convert);
+    $("#neweditor").on("keyup", () => $("#result2").html(converter.makeHtml($("#neweditor").val())));
 
+    let ids2 = [];
     // Initialize Firebase
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
@@ -61,7 +69,55 @@
 
         })
       });
+      const quer = await getDocs(query(collection(db, "posts")));
+      quer.forEach((doc) => {
+        // doc.data() is never undefined for query doc snapshots
+        const data = doc.data();
+        const id = doc.id;
+        const created = new Date(data.created * 1000);
+        ids2.push(id)
+        $("#btable").append(`
+
+  <tr>
+    <td>  <input type="text" value="${id}" id="${id}1" disabled></td>
+    <td>  <input type="text" value="${data.title}" id="${id}2"></td>
+    <td>  <textarea id="${id}3" >${data.subtitle}</textarea></td>
+    <td>  <input type="text" value="${data.author}" id="${id}4"></td>
+    <td>  <input type="text" value="${data.image}" id="${id}5" ></td>
+    <td>  <p id="${id}6" style="width:200px;">${created}</p></td>
+    <td>  <button id="${id}7" style="width:200px;">Load in editor</button></td>
+
+  </tr>
+              `)
+        $("#" + id + "7").click(function () {
+          currentlyEditing = id;
+          $("#editor").val(data.content)
+          $("#editor").attr("disabled", false);
+          $("#linfo").html("Loaded news post with id \"" + id + "\"");
+          convert();
+        })
+
+      });
+
     }
+    $("#addpost").click(function () {
+      if ($("#POST1").val().length > 3) {
+        var ref = doc(db, 'posts', $("#POST1").val());
+        let id = "POST"
+        
+        setDoc(ref, {
+          title: $("#" + id + '2').val(),
+          subtitle: $("#" + id + '3').val(),
+          author: $("#" + id + '4').val(),
+          image: $("#" + id + '5').val(),
+          created: Math.round(Date.now() / 1000),
+          content: $("#neweditor").val(),
+        });
+        window.location.reload();
+      } else {
+        alert("ID must be more than 3 characters long")
+      }
+    })
 
 
     $("#savembbt").click(function () {
@@ -152,9 +208,80 @@
         <button id="savefcbt">Add member</button>
 
         <div id="facultydiv">
-          
+
         </div>
         <button id="savefcbt">Save Faculty</button>
+        <hr>
+        <h2>News Posts</h2>
+        <button id="save2">Save</button>
+        <div id="posts">
+          <table id="btable" style="width:100%;">
+            <tr>
+              <th>ID</th>
+              <th>Title</th>
+              <th>Subtitle</th>
+              <th>Author</th>
+              <th>Image Link</th>
+              <th>Time Created</th>
+              <th>Open in Editor</th>
+
+            </tr>
+          </table>
+        </div>
+        <h2>Post Editor</h2>
+        <p id="linfo">No post currently loaded</p>
+        <div style="display:flex;flex-direction: row;">
+          <div
+            style="width:50%;height:80vh;border:solid 2px black;display:flex;align-items: center;justify-content: center;">
+            <textarea style="width:95%;height:95%;" id="editor"
+              disabled>Press "Load in Editor" to open up a blog post to edit. Only the news post loaded in here will be changed. </textarea>
+          </div>
+          <div
+            style="width:50%;height:80vh;border:solid 2px black;display:flex;align-items: center;justify-content: center;">
+            <div style="width:95%;height:95%;" id="result">
+
+            </div>
+          </div>
+        </div>
+        <h2>Add New Post</h2>
+        <p>This will cause the page to reload to repopulate the data table, any unsaved changes above will be deleted</p>
+        <button id="addpost">Add Post</button>
+        <table id="btable" style="width:100%;">
+          <tr>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Subtitle</th>
+            <th>Author</th>
+            <th>Image Link</th>
+          </tr>
+          <tr>
+            <td> <input type="text" id="POST1"></td>
+            <td> <input type="text" id="POST2"></td>
+            <td> <input type="text" id="POST3"></td>
+            <td> <input type="text" id="POST4"></td>
+            <td> <input type="text" id="POST5"></td>
+
+          </tr>
+
+
+
+        </table>
+        <div style="display:flex;flex-direction: row;">
+          <div
+            style="width:50%;height:80vh;border:solid 2px black;display:flex;align-items: center;justify-content: center;">
+            <textarea style="width:95%;height:95%;" id="neweditor"> </textarea>
+          </div>
+          <div
+            style="width:50%;height:80vh;border:solid 2px black;display:flex;align-items: center;justify-content: center;">
+            <div style="width:95%;height:95%;" id="result2">
+
+            </div>
+          </div>
+        </div>
+        <h3>Delete Post</h3>
+        <input id="dbId" type="text" placeholder="Post ID">
+        <button id="deleteB">Delete</button>
+
 
 
 

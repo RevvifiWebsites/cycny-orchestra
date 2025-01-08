@@ -101,6 +101,10 @@ body {
   margin-right:10px;
 
 }
+table, th, tr, td {
+  border: solid 1px black;
+  text-align: center;
+}
 .fitem {
   border: solid 1px black;
   padding:5px;
