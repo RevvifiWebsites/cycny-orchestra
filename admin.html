@@ -38,7 +38,26 @@
     const convert = () => $("#result").html(converter.makeHtml($("#editor").val()))
     $("#editor").on("keyup", convert);
     $("#neweditor").on("keyup", () => $("#result2").html(converter.makeHtml($("#neweditor").val())));
+    $("#save2").on('click', function () {
+        for (let id of ids2) {
+          setDoc(doc(db, 'posts', id), {
+            title: $("#" + id + '2').val(),
+            subtitle: $("#" + id + '3').val(),
+            author: $("#" + id + '4').val(),
+            image: $("#" + id + '5').val()
+          }, { merge: true });
+        }
+        if (currentlyEditing != null) {
+          setDoc(doc(db, 'posts', currentlyEditing), {
+            content: $("#editor").val()
 
+          }, {merge:true})
+        }
+        alert("Saving successful!")
+
+
+      })
+    
     let ids2 = [];
     // Initialize Firebase
     const app = initializeApp(firebaseConfig);
