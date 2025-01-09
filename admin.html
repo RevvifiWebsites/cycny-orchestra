@@ -22,7 +22,7 @@
   <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/6.0.1/firebase-ui-auth.css" />
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js";
-    import { getFirestore, collection, doc, setDoc, getDoc, query, getDocs } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore.js";
+    import { getFirestore, collection, doc, setDoc, getDoc, query, getDocs, deleteDoc } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore.js";
     import { getAuth, signInWithPopup, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-auth.js";
 
     const firebaseConfig = {
@@ -38,26 +38,30 @@
     const convert = () => $("#result").html(converter.makeHtml($("#editor").val()))
     $("#editor").on("keyup", convert);
     $("#neweditor").on("keyup", () => $("#result2").html(converter.makeHtml($("#neweditor").val())));
-    $("#save2").on('click', function () {
-        for (let id of ids2) {
-          setDoc(doc(db, 'posts', id), {
-            title: $("#" + id + '2').val(),
-            subtitle: $("#" + id + '3').val(),
-            author: $("#" + id + '4').val(),
-            image: $("#" + id + '5').val()
-          }, { merge: true });
-        }
-        if (currentlyEditing != null) {
-          setDoc(doc(db, 'posts', currentlyEditing), {
-            content: $("#editor").val()
+    $("#save2").on('click', async function () {
+      for (let id of ids2) {
+        await setDoc(doc(db, 'posts', id), {
+          title: $("#" + id + '2').val(),
+          subtitle: $("#" + id + '3').val(),
+          author: $("#" + id + '4').val(),
+          image: $("#" + id + '5').val()
+        }, { merge: true });
+      }
+      if (currentlyEditing != null) {
+        await setDoc(doc(db, 'posts', currentlyEditing), {
+          content: $("#editor").val()
 
-          }, {merge:true})
-        }
-        alert("Saving successful!")
+        }, { merge: true })
+      }
+      alert("Saving successful!")
 
 
-      })
-    
+    })
+    $("#deleteB").on("click", async function () {
+      await deleteDoc(doc(db, "posts", $("#dbId").val()))
+      window.location.reload()
+
+    })
     let ids2 = [];
     // Initialize Firebase
     const app = initializeApp(firebaseConfig);
@@ -88,6 +92,13 @@
 
         })
       });
+      const facultyquer = await getDocs(query(collection(db, "posts")));
+      facultyquer.forEach((doc) => {
+        const docdata = doc.data();
+        $("#membersdiv").append(`
+          
+        `)
+      })
       const quer = await getDocs(query(collection(db, "posts")));
       quer.forEach((doc) => {
         // doc.data() is never undefined for query doc snapshots
@@ -119,12 +130,28 @@
       });
 
     }
-    $("#addpost").click(function () {
+    $("#addfacul").click(async function() {
+      if ($("#aname").val().length > 3) {
+        var ind = String($("#aname").val()).toLowerCase().replace(" ", "");
+        var ref = doc(db, 'faculty', ind);
+
+        await setDoc(ref, {
+          name:$("#aname").val(),
+          title: $("#atitle").val(),
+          image: $("#aimage").val(),
+          bio: $("#abio").val(),
+        });
+        window.location.reload();
+      } else {
+        alert("ID must be more than 3 characters long")
+      }
+    })
+    $("#addpost").click(async function () {
       if ($("#POST1").val().length > 3) {
         var ref = doc(db, 'posts', $("#POST1").val());
         let id = "POST"
-        
-        setDoc(ref, {
+
+        await setDoc(ref, {
           title: $("#" + id + '2').val(),
           subtitle: $("#" + id + '3').val(),
           author: $("#" + id + '4').val(),
@@ -139,12 +166,12 @@
     })
 
 
-    $("#savembbt").click(function () {
+    $("#savembbt").click(async function () {
       try {
         for (var item of members) {
           console.log(item)
           const newRef = doc(db, 'members', item);
-          setDoc(newRef, { members: $("#mbd" + item).val() }, { merge: true });
+          await setDoc(newRef, { members: $("#mbd" + item).val() }, { merge: true });
         }
         alert("Members data changed successfully")
       } catch (e) {
@@ -219,12 +246,12 @@
         <p style="margin:0;margin-top:3px;margin-bottom:3px;font-size:12px;">Make sure to press the "Save Faculty"
           button to save changes</p>
         <div class="fitem">
-          <input type="text" style="font-size:20px;" placeholder="Name" />
-          <input type="text" placeholder="Title/Position" />
-          <input type="text" placeholder="Image Link" />
-          <textarea placeholder="Biography"></textarea>
+          <input type="text" id="aname" style="font-size:20px;" placeholder="Name" />
+          <input type="text" id="atitle" placeholder="Title/Position" />
+          <input type="text" id="aimage" placeholder="Image Link" />
+          <textarea id="abio" placeholder="Biography"></textarea>
         </div>
-        <button id="savefcbt">Add member</button>
+        <button id="addfacul">Add Faculty</button>
 
         <div id="facultydiv">
 
@@ -263,7 +290,8 @@
           </div>
         </div>
         <h2>Add New Post</h2>
-        <p>This will cause the page to reload to repopulate the data table, any unsaved changes above will be deleted</p>
+        <p>This will cause the page to reload to repopulate the data table, any unsaved changes above will be deleted
+        </p>
         <button id="addpost">Add Post</button>
         <table id="btable" style="width:100%;">
           <tr>
@@ -298,6 +326,8 @@
           </div>
         </div>
         <h3>Delete Post</h3>
+        <p>This will cause the page to reload to repopulate the data table, any unsaved changes above will be deleted</p>
+        <br>
         <input id="dbId" type="text" placeholder="Post ID">
         <button id="deleteB">Delete</button>
 
