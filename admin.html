@@ -92,11 +92,18 @@
 
         })
       });
-      const facultyquer = await getDocs(query(collection(db, "posts")));
+      const facultyquer = await getDocs(query(collection(db, "faculty")));
       facultyquer.forEach((doc) => {
         const docdata = doc.data();
-        $("#membersdiv").append(`
-          
+        console.log(docdata)
+        const id = doc.id
+        $("#facultydiv").append(`
+          <div class="fitem">
+          <input type="text" id="${id}name" style="font-size:20px;" placeholder="Name" value="${docdata.name}"/>
+          <input type="text" id="${id}title" placeholder="Title/Position" value="${docdata.title}"/>
+          <input type="text" id="${id}image" placeholder="Image Link" value="${docdata.image}"/>
+          <textarea id="${id}bio" placeholder="Biography" value="${docdata.bio}"></textarea>
+        </div>
         `)
       })
       const quer = await getDocs(query(collection(db, "posts")));
@@ -130,13 +137,13 @@
       });
 
     }
-    $("#addfacul").click(async function() {
+    $("#addfacul").click(async function () {
       if ($("#aname").val().length > 3) {
         var ind = String($("#aname").val()).toLowerCase().replace(" ", "");
         var ref = doc(db, 'faculty', ind);
 
         await setDoc(ref, {
-          name:$("#aname").val(),
+          name: $("#aname").val(),
           title: $("#atitle").val(),
           image: $("#aimage").val(),
           bio: $("#abio").val(),
@@ -243,8 +250,9 @@
         <h3>Add New Faculty Member</h3>
         <p style="margin:0;margin-top:3px;margin-bottom:3px;font-size:12px;">Fill out the information below and press
           the "Add member" button to add the new faculty member.</p>
-        <p style="margin:0;margin-top:3px;margin-bottom:3px;font-size:12px;">Make sure to press the "Save Faculty"
-          button to save changes</p>
+
+        <p>This will cause the page to reload to repopulate the data table, any unsaved changes above will be deleted
+
         <div class="fitem">
           <input type="text" id="aname" style="font-size:20px;" placeholder="Name" />
           <input type="text" id="atitle" placeholder="Title/Position" />
@@ -252,10 +260,14 @@
           <textarea id="abio" placeholder="Biography"></textarea>
         </div>
         <button id="addfacul">Add Faculty</button>
+        <h3>Faculty List</h3>
+        <p style="margin:0;margin-top:3px;margin-bottom:3px;font-size:12px;">Make sure to press the "Save Faculty"
+          button to save changes</p>
 
         <div id="facultydiv">
 
         </div>
+
         <button id="savefcbt">Save Faculty</button>
         <hr>
         <h2>News Posts</h2>
@@ -326,7 +338,8 @@
           </div>
         </div>
         <h3>Delete Post</h3>
-        <p>This will cause the page to reload to repopulate the data table, any unsaved changes above will be deleted</p>
+        <p>This will cause the page to reload to repopulate the data table, any unsaved changes above will be deleted
+        </p>
         <br>
         <input id="dbId" type="text" placeholder="Post ID">
         <button id="deleteB">Delete</button>
