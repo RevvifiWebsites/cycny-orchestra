@@ -57,6 +57,10 @@
 
 
     })
+    $("#deleteF").on("click", async function() {
+      await deleteDoc(doc(db, "faculty", $("#fId").val()))
+      window.location.reload()
+    })
     $("#deleteB").on("click", async function () {
       await deleteDoc(doc(db, "posts", $("#dbId").val()))
       window.location.reload()
@@ -288,6 +292,9 @@
         </div>
 
         <button id="savefcbt">Save Faculty</button>
+        <h3>Delete Faculty</h3>
+        <input id="fId" type="text" placeholder="Faculty ID">
+        <button id="deleteF">Delete</button>
         <hr>
         <h2>News Posts</h2>
         <button id="save2">Save</button>
