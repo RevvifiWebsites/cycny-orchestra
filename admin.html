@@ -63,6 +63,7 @@
 
     })
     let ids2 = [];
+    let fids = [];
     // Initialize Firebase
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
@@ -96,7 +97,9 @@
       facultyquer.forEach((doc) => {
         const docdata = doc.data();
         console.log(docdata)
+
         const id = doc.id
+        fids.push(id);
         $("#facultydiv").append(`
           <div class="fitem">
           <input type="text" id="${id}name" style="font-size:20px;" placeholder="Name" value="${docdata.name}"/>
@@ -172,7 +175,23 @@
       }
     })
 
-
+    $("#savefcbt").click(async function() {
+      try {
+        for (var item of fids) {
+          console.log(item)
+          const newRef = doc(db, 'faculty', item);
+          await setDoc(newRef, { 
+            name: $("#" + item + "name").val(),
+            title: $("#" + item + "title").val(),
+            image: $("#" + item + "image").val(),
+            bio: $("#" + item + "bio").val(),
+           }, { merge: true });
+        }
+        alert("Faculty data changed successfully")
+      } catch (e) {
+        alert("An error occured. Reload and try again. ")
+      }
+    })
     $("#savembbt").click(async function () {
       try {
         for (var item of members) {
@@ -262,7 +281,7 @@
         <button id="addfacul">Add Faculty</button>
         <h3>Faculty List</h3>
         <p style="margin:0;margin-top:3px;margin-bottom:3px;font-size:12px;">Make sure to press the "Save Faculty"
-          button to save changes</p>
+            button to save changes</p>
 
         <div id="facultydiv">
 
