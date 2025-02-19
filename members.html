@@ -52,7 +52,7 @@
         <h1>Our Faculty</h1>
         <hr style="width:90%">
         <div id="instructors">
-          <div class="cinp">
+          <div class="cinp" id="cn1">
             <img src="./assets/chriscpic.jpg" style="height:20vh;margin:0;max-width:80%;object-fit: cover;" />
             <p class="cname">Christopher Chung</p>
             <p class="subinfo">Music Director, Conductor/String
@@ -169,7 +169,7 @@
             </p>
             <button class="bioopen" caction="lpcinfo">Show Biography</button>
           </div>
-          <div class="cinp">
+          <div class="cinp" id="cn2">
             <img src="./assets/chichinglpic.jpg" style="height:20vh;margin:0;max-width:80%;object-fit: cover;" />
             <p class="cname">Chi-Ching Lin</p>
             <p class="subinfo">Percussion Faculty</p>
@@ -364,33 +364,107 @@
       });
       //Balance the two columns, probably a better way to do this but that's a problem for later
       var count = 0
-      Object.values(data).map((val) => count+=val.split(",").length+2.3);
+      Object.values(data).map((val) => count += val.split(",").length + 2.3);
       var ccount = 0;
       for (var item of Object.keys(data)) {
         var d = data[item];
         console.log(d.split(","))
         const s = d.split(",").map((val) => { return (String(val).trim() + "<br>") });
-        console.log(s);
         var a = `
         <p><span style="font-size:20px;font-weight:800">${item}</span><br>
         ${s.join("")}
         </p>`
-        console.log(a)
-        if (ccount < count/2) {
+        if (ccount < count / 2) {
           $("#c1p").append(a);
         } else {
           $("#c2p").append(a);
         }
 
-        ccount+= d.split(",").length + 2.3;
-        console.log(item)
+        ccount += d.split(",").length + 2.3;
 
       }
+      const q2 = query(collection(db, "faculty"));
+      const querySnapshot2 = await getDocs(q2);
+      let k = 0;
+      querySnapshot2.forEach((doc) => {
+        /*
+        <img src="./assets/chichinglpic.jpg" style="height:20vh;margin:0;max-width:80%;object-fit: cover;" />
+            <p class="cname">Chi-Ching Lin</p>
+            <p class="subinfo">Percussion Faculty</p>
+            <p class="info" style="display:none" id="cclinfo">&emsp;
+              Taiwanese percussionist Chi-Ching Grace Lin maintains a varied chamber music and orchestra career in new
+              york city area.
+              Chi-Ching has performed with Dicapo opera, the Metropolitain opera orchestra, Teatro Grattacielo opera,
+              National Choral,
+              Binghamton Philharmonic,Riverside Symphony, New York Asian Symphony Orchestra, New Amsterdam Orchestra,
+              Westfield
+              Symphony Orchestra,Colonial Symphony, Park Chamber Symphony Orchestra,Centre Symphony Orchestra,Metro
+              Chamber Orchestra
+              in venues such as Lincol Center, Carnegie Hall, Merkin Hall, Version Hall in Philadelphia, Washington DC,
+              New Jersey,
+              Honk Kong, China and Japan. As soloist Chi-Ching was feature as marimba soloist in Day of Percussion
+              Festival in NYC in
+              2001 and 2002 and also obtained the excellent performance of chamber ensemble award. In 2008 Chi-Ching
+              premiered Andrew
+              Beall's percussion concerto at Lincoln center with CYCNY. She also can be found on Andrew Beall's solo
+              percussion album
+              "Deliverance". As chamber musician,Chi-Ching has appeared with the Talujon Percussion group, Tam Dun
+              Percussion group
+              and 20th Century Contemporary Ensemble. Chi-Ching received her Master's degree and Professional Studies
+              Diploma from
+              Queens College and Mannes College the new school for music where she studied with Michael Lipsy, Michael
+              Werner, Jim
+              Priess, Barry Centanni and Glenn Valez. Chi-Ching is the percussion faculty of the Chinese Youth Orchestra
+              of New York
+              since 2006.
+            </p>
+            <button class="bioopen" caction="cclinfo">Show Biography</button>
+        */
+        const ddata = doc.data();
+        let id = String(ddata.name).replace("/[^a-Z]/g", "");
+        id = id.replace(" ", "");
+        console.log(id)
+        $("#cn" + (k % 2 + 1)).append(`
+          ${ddata.image == "" ? "" : '<img src="' + ddata.image + '" style="height:20vh;margin:0;max-width:80%;object-fit: cover;" />'}
+          <p class="cname">${ddata.name}</p>
+            <p class="subinfo">${ddata.title}</p>
+            <p class="info" style="display:none" id="${id + "info"}">&emsp;
+            ${ddata.bio}
+            </p>
+            
+            <button class="bioopen" id="${"op" + id}" caction="${id + "info"}">Show Biography</button>
+        `)
+        $("#op" + id).click(function () {
+          const display = ($("#" + $(this).attr("caction")).css("display"));
+          console.log("je")
+          if (display == "none") {
+            $(this).html("Hide Biography")
+            $("#" + $(this).attr("caction")).css('opacity', 0);
+            $("#" + $(this).attr("caction")).show();
+            $("#" + $(this).attr("caction")).animate({
+              opacity: 1,
+            }, 500)
+
+          } else {
+            $("#" + $(this).attr("caction")).css("display", "none");
+            $(this).html("Show Biography")
+
+            // $("#" + $(this).attr("caction")).animate({
+            //   opacity: 0,
+            // }, 500, function() {
+            //   console.log('ea')
+            // })
+
+
+          }
+        })
+        k += 1
+      })
 
     }
+
     loadData();
   </script>
-  <script src="./index.js"></script>
 </body>
 
 </html>

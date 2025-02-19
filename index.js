@@ -1,6 +1,7 @@
 window.onload = function() {
   $(".bioopen").click(function() {
     const display = ($("#" + $(this).attr("caction")).css("display"));
+    console.log("je")
     if (display == "none") {
       $(this).html("Hide Biography")
       $("#" + $(this).attr("caction")).css('opacity', 0);
