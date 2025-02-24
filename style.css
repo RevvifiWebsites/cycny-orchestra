@@ -124,6 +124,11 @@ table, th, tr, td {
 .fitem textarea::placeholder {
   color:rgb(126, 126, 126);
 }
+.fitem p {
+  margin-top:0;
+  margin-bottom:0;
+  font-size:15px;
+}
 #head-div {
   padding: 30px;
   margin: 0;
