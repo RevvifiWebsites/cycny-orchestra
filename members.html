@@ -422,7 +422,7 @@
         */
         const ddata = doc.data();
         let id = String(ddata.name).replace("/[^a-Z]/g", "");
-        id = id.replace(" ", "");
+        id = id.replaceAll(" ", "");
         console.log(id)
         $("#cn" + (k % 2 + 1)).append(`
           ${ddata.image == "" ? "" : '<img src="' + ddata.image + '" style="height:20vh;margin:0;max-width:80%;object-fit: cover;" />'}
