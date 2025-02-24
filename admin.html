@@ -106,10 +106,11 @@
         fids.push(id);
         $("#facultydiv").append(`
           <div class="fitem">
+          <p>Id: ${id}</p>
           <input type="text" id="${id}name" style="font-size:20px;" placeholder="Name" value="${docdata.name}"/>
           <input type="text" id="${id}title" placeholder="Title/Position" value="${docdata.title}"/>
           <input type="text" id="${id}image" placeholder="Image Link" value="${docdata.image}"/>
-          <textarea id="${id}bio" placeholder="Biography" value="${docdata.bio}"></textarea>
+          <textarea id="${id}bio" placeholder="Biography">${docdata.bio}</textarea>
         </div>
         `)
       })
@@ -146,7 +147,7 @@
     }
     $("#addfacul").click(async function () {
       if ($("#aname").val().length > 3) {
-        var ind = String($("#aname").val()).toLowerCase().replace(" ", "");
+        var ind = String($("#aname").val()).toLowerCase().replaceAll(" ", "");
         var ref = doc(db, 'faculty', ind);
 
         await setDoc(ref, {
