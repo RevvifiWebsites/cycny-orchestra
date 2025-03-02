@@ -53,19 +53,56 @@
       </div>
     </div>
     <div class="main-content"
-      style="background-color: #FFFBE8;display:flex;justify-content: center;align-items: center;">
+      style="background-color: #fffae0;display:flex;flex-direction: row;justify-content: center;align-items: center;margin-bottom:0;">
       <div
-        style="background-color: #f2edd6;display:flex;justify-content: flex-start;align-items:center;height:80vh;width:80%;margin-top:50px;flex-direction: column;">
+        style="width:20%;height:80vh;display:flex;align-items: center;justify-content: center;flex-direction: column;">
+        <h1 style="font-weight: 800;width:90%;text-align: left;font-size:40px;margin-bottom:10px;">About Us</h1>
+        <p style="width:90%;font-size:20px;margin-top:5px">We are a Queens-based Youth Orchestra seeking to provide
+          multicultural and orchestral experiences to talented and serious music students under the guidance of our
+          talented faculty members.</p>
+      </div>
+      <div style="width:50%;height:80vh;display:flex;align-items: center;justify-content: center;">
+        <img src="./assets/mainabout.jpg" style='height: 70vh;width:80%;object-fit: cover;margin:0;' alt="" />
+      </div>
+    </div>
+    <div class="main-content"
+      style="background-color: #fffef8;display:flex;justify-content: center;align-items: center;margin-top:0;margin-bottom:0">
+      <div
+        style="display:flex;justify-content: flex-start;align-items:center;height:80vh;width:80%;margin-top:50px;flex-direction: column;">
         <h1 style="font-weight: 800;">Upcoming Events</h1>
-        
+
       </div>
 
     </div>
-    <div id="footer" style="background-color: #B74921;display: flex;justify-content: center;color:white;height:10vh;align-items: center;">
+    <div id="footer"
+      style="background-color: #B74921;display: flex;justify-content: center;color:white;height:10vh;align-items: center;">
       <p style="font-size:13px;">Designed by <span style="font-weight: 800;">Revvifi NY</span></p>
     </div>
 
   </main>
+  <script>
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js";
+    import { getFirestore, collection, doc, setDoc, getDoc, query, getDocs, deleteDoc } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyD4VyCY86vt6lIPtOH4IXCL0iSMsJl9KSU",
+      authDomain: "cycny-853d8.firebaseapp.com",
+      projectId: "cycny-853d8",
+      storageBucket: "cycny-853d8.firebasestorage.app",
+      messagingSenderId: "107987972415",
+      appId: "1:107987972415:web:f0ed37d7e30858bc31238a"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    async function loadData() {
+
+    }
+    loadData();
+    
+  </script>
+
 </body>
 
 </html>
