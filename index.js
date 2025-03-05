@@ -1,26 +1,27 @@
-// window.onload = function() {
-//   $(".bioopen").click(function() {
-//     const display = ($("#" + $(this).attr("caction")).css("display"));
-//     console.log("je")
-//     if (display == "none") {
-//       $(this).html("Hide Biography")
-//       $("#" + $(this).attr("caction")).css('opacity', 0);
-//       $("#" + $(this).attr("caction")).show();
-//       $("#" + $(this).attr("caction")).animate({
-//         opacity:1,
-//       }, 500)
+window.onload = function() {
+  $("#c").on("click", function() {
+    window.location.href ="/"
+  })
+  $(".navlink").on("click", function() {
+    const go = $(this).html()
+    switch (go) {
+      case "About Us":
+        window.location.href ="/about.html"
+        break;
+      case "News":
+        window.location.href ="/news.html"
+        break;
+      case "Members":
+        window.location.href ="/members.html"
+        break;
+      case "Auditions":
+        window.location.href ="/auditions.html"
+        break;
+      case "Patrons":
+        window.location.href ="/patrons.html"
+        break;
 
-//     } else {
-//       $("#" + $(this).attr("caction")).css("display", "none");
-//       $(this).html("Show Biography")
-
-//       // $("#" + $(this).attr("caction")).animate({
-//       //   opacity: 0,
-//       // }, 500, function() {
-//       //   console.log('ea')
-//       // })
-
-
-//     }
-//   })
-// }
+    }
+  
+  })
+}
