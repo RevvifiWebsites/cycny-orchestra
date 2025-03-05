@@ -57,7 +57,7 @@
 
 
     })
-    $("#deleteF").on("click", async function() {
+    $("#deleteF").on("click", async function () {
       await deleteDoc(doc(db, "faculty", $("#fId").val()))
       window.location.reload()
     })
@@ -180,17 +180,17 @@
       }
     })
 
-    $("#savefcbt").click(async function() {
+    $("#savefcbt").click(async function () {
       try {
         for (var item of fids) {
           console.log(item)
           const newRef = doc(db, 'faculty', item);
-          await setDoc(newRef, { 
+          await setDoc(newRef, {
             name: $("#" + item + "name").val(),
             title: $("#" + item + "title").val(),
             image: $("#" + item + "image").val(),
             bio: $("#" + item + "bio").val(),
-           }, { merge: true });
+          }, { merge: true });
         }
         alert("Faculty data changed successfully")
       } catch (e) {
@@ -286,7 +286,7 @@
         <button id="addfacul">Add Faculty</button>
         <h3>Faculty List</h3>
         <p style="margin:0;margin-top:3px;margin-bottom:3px;font-size:12px;">Make sure to press the "Save Faculty"
-            button to save changes</p>
+          button to save changes</p>
 
         <div id="facultydiv">
 
