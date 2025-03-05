@@ -14,6 +14,8 @@
     href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap"
     rel="stylesheet">
   <script src="https://kit.fontawesome.com/3f34c302de.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/showdown@2.1.0/dist/showdown.min.js"></script>
+
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"
     integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 
@@ -44,15 +46,15 @@
     </div>
     <div id="head-content" style="height:65vh;flex-direction: column;">
       <p style="font-size:60px;color:white;font-weight: 800;margin-bottom:0">Latest News</p>
-      <p style="font-size:20px;color:rgb(218, 218, 218);font-weight: 500;margin-top:0">The latest posts from the Youth Orchestra for events or announcements</p>
+      <p style="font-size:20px;color:rgb(218, 218, 218);font-weight: 500;margin-top:0">The latest posts from the Youth
+        Orchestra for events or announcements</p>
 
     </div>
     <div class="main-content"
       style="background-color: #fefdf4;display:flex;justify-content: center;margin-top:56vh;padding-bottom:100px;min-height:auto;height:auto;overflow:visible;flex-direction: column;align-items: center;">
       <div
-        style="display:flex;flex-direction: row;justify-content:center;flex-wrap: wrap;padding-top:40px;padding-bottom:5px;width:80%;max-width:900px"
-        id="events">
-
+        style="display:flex;flex-direction:column;padding-top:40px;padding-bottom:5px;width:70%;max-width:900px"
+        id="content">
       </div>
     </div>
 
@@ -75,33 +77,45 @@
       messagingSenderId: "107987972415",
       appId: "1:107987972415:web:f0ed37d7e30858bc31238a"
     };
-
+    var converter = new showdown.Converter()
+    const convert = (data, id) => $("#" + id).html(converter.makeHtml(data))
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
-
+    let posts = {}
     async function loadData() {
       const q = query(collection(db, "posts"));
       const querySnapshot = await getDocs(q);
       querySnapshot.forEach((doc) => {
         const ddata = doc.data();
-        const id = doc.id;
         const created = new Date(ddata.created * 1000)
-
-        $("#events").append(`
-          <div class="event" id="e${id}">
-            <img src="${ddata.image}"/>
-            <h1>${ddata.title}</h1>
-            <p style="margin-left:10px;margin-top:0;margin-bottom:0px;">${ddata.subtitle}</p>
-            <hr>
-            <p style="margin-left:10px;margin-top:0;margin-bottom:10px;font-size:13px;color:rgb(109, 109, 109)">${ddata.author} - ${created.getMonth() + 1}/${created.getDate()}/${created.getFullYear()}</p>
-          </div>
-          `)
-        $("#e" + id).on("click", function () {
-          window.location.href = "/post.html?id=" + id;
-        })
+        let ndata = ddata;
+        ndata.created = created
+        posts[doc.id] = ndata;
+        console.log(posts)
       });
+      var url = new URL(window.location.href);
+      var c = url.searchParams.get("id");
+      if (Object.keys(posts).includes(c)) {
+        const d = posts[c];
+        const created = d.created;
+        $("#content").append(`
+      <h1 style="margin-bottom:5px;font-size:60px;text-wrap:balance">${d.title}</h1>
+      <h3 style="margin-top:4px;margin-bottom:3px;font-size:25px;color:rgb(61, 61, 61);margin-bottom:5px;text-wrap:balance">${d.subtitle}</h3>
+      <h3 style="margin-top:4px;margin-bottom:3px;font-size:15px;font-weight:400;color:rgb(88, 88, 88);margin-bottom:35px;">Posted on ${created.getMonth() + 1}/${created.getDate()}/${created.getFullYear()} by ${d.author}</h3>
+      <br>
+      `)
+        if (String(d.image).length > 0) {
+          $("#content").append(`<img src="${d.image}" style="max-height:60vh;max-width:100%;min-width:70%;object-fit: cover;"/>`)
+        }
+        $("#content").append("<div id='mcontent'></div>")
+        convert(d.content, "mcontent")
+      } else {
+        console.log('boo')
+        window.location.href = "./news.html"
+      }
     }
     loadData();
+
   </script>
   <script src="./index.js"></script>
 </body>

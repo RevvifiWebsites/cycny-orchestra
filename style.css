@@ -16,6 +16,7 @@
   width: 400px;
   margin-left:20px;
   margin-right:20px;
+  margin-bottom:20px;
   transition-duration: 0.2s;
 }
 .event h1 {

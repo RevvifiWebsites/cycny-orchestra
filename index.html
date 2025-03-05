@@ -106,10 +106,11 @@
       const querySnapshot = await getDocs(q);
       querySnapshot.forEach((doc) => {
         const ddata = doc.data();
+        const id=doc.id;
         const created = new Date(ddata.created * 1000)
 
         $("#events").append(`
-          <div class="event">
+          <div class="event" id="e${id}">
             <img src="${ddata.image}"/>
             <h1>${ddata.title}</h1>
             <p style="margin-left:10px;margin-top:0;margin-bottom:0px;">${ddata.subtitle}</p>
@@ -117,6 +118,9 @@
             <p style="margin-left:10px;margin-top:0;margin-bottom:10px;font-size:13px;color:rgb(109, 109, 109)">${ddata.author} - ${created.getMonth()+1}/${created.getDate()}/${created.getFullYear()}</p>
           </div>
           `)
+        $("#e" + id).on("click", function() {
+          window.location.href="/post.html?id=" + id;
+        })
 
       });
     }
