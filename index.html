@@ -69,7 +69,12 @@
       style="background-color: #fffef8;display:flex;justify-content: center;align-items: center;margin-top:0;margin-bottom:0">
       <div
         style="display:flex;justify-content: flex-start;align-items:center;height:80vh;width:80%;margin-top:50px;flex-direction: column;">
-        <h1 style="font-weight: 800;">Upcoming Events</h1>
+        <h1 style="font-weight: 800;">Latest News</h1>
+        <div
+          style="display:flex;flex-direction: row;justify-content:center;flex-wrap: wrap;padding-top:5px;padding-bottom:5px;width:80%;max-width:900px"
+          id="events">
+
+        </div>
 
       </div>
 
@@ -80,7 +85,7 @@
     </div>
 
   </main>
-  <script>
+  <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js";
     import { getFirestore, collection, doc, setDoc, getDoc, query, getDocs, deleteDoc } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore.js";
 
@@ -97,10 +102,26 @@
     const db = getFirestore(app);
 
     async function loadData() {
+      const q = query(collection(db, "posts"));
+      const querySnapshot = await getDocs(q);
+      querySnapshot.forEach((doc) => {
+        const ddata = doc.data();
+        const created = new Date(ddata.created * 1000)
 
+        $("#events").append(`
+          <div class="event">
+            <img src="${ddata.image}"/>
+            <h1>${ddata.title}</h1>
+            <p style="margin-left:10px;margin-top:0;margin-bottom:0px;">${ddata.subtitle}</p>
+            <hr>
+            <p style="margin-left:10px;margin-top:0;margin-bottom:10px;font-size:13px;color:rgb(109, 109, 109)">${ddata.author} - ${created.getMonth()+1}/${created.getDate()}/${created.getFullYear()}</p>
+          </div>
+          `)
+
+      });
     }
     loadData();
-    
+
   </script>
 
 </body>

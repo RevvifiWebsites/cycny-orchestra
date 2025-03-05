@@ -9,6 +9,38 @@
 
 }
 
+.event {
+  display: flex;
+  flex-direction: column;
+  background-color: #fff7d3;
+  width: 400px;
+  margin-left:20px;
+  margin-right:20px;
+  transition-duration: 0.2s;
+}
+.event h1 {
+  width: 100%;
+    font-size: 30px;
+    margin: 10px;
+    margin-bottom: 2px;
+    text-wrap: balance
+}
+.event hr {
+  border-top-color: black;
+  width: 95%;
+  border-bottom: none
+}
+
+.event:hover {
+  scale: 1.05;
+}
+
+.event img {
+  height: 30vh;
+  width: 100%;
+  object-fit: cover;
+}
+
 #citems {
   display: flex;
   flex-direction: row;
@@ -67,8 +99,9 @@
   margin: 0;
   font-size: 14px;
 }
+
 #facultydiv {
-  margin-top:15px;
+  margin-top: 15px;
 }
 
 html,
@@ -93,42 +126,54 @@ body {
   justify-content: flex-start;
 
 }
+
 .memberitem {
-  display:flex;
+  display: flex;
   flex-direction: row;
-  margin-bottom:3px;
-  margin-top:3px;
+  margin-bottom: 3px;
+  margin-top: 3px;
 }
+
 .memberitem p {
-  margin:0;
-  margin-right:10px;
+  margin: 0;
+  margin-right: 10px;
 
 }
-table, th, tr, td {
+
+table,
+th,
+tr,
+td {
   border: solid 1px black;
   text-align: center;
 }
+
 .fitem {
   border: solid 1px black;
-  padding:5px;
-  width:300px;
+  padding: 5px;
+  width: 300px;
 
 }
+
 .fitem input[type="text"] {
-  width:200px;
+  width: 200px;
 }
+
 .fitem textarea {
-  width:270px;
+  width: 270px;
   resize: none;
 }
+
 .fitem textarea::placeholder {
-  color:rgb(126, 126, 126);
+  color: rgb(126, 126, 126);
 }
+
 .fitem p {
-  margin-top:0;
-  margin-bottom:0;
-  font-size:15px;
+  margin-top: 0;
+  margin-bottom: 0;
+  font-size: 15px;
 }
+
 #head-div {
   padding: 30px;
   margin: 0;
@@ -179,20 +224,23 @@ table, th, tr, td {
   color: gray;
   font-size: 15px;
 }
+
 .medit {
-  padding:2px;
-  border:solid 1px black;
-  width:30%;
-  max-width:500px;
+  padding: 2px;
+  border: solid 1px black;
+  width: 30%;
+  max-width: 500px;
 }
+
 .medit h3 {
-  margin:0;
+  margin: 0;
 }
+
 .medit input[type=text] {
-  margin-left:2px;
-  margin-right:2px;
+  margin-left: 2px;
+  margin-right: 2px;
   width: 97%;
-  
+
 }
 
 .bioopen:hover {
@@ -261,10 +309,10 @@ table, th, tr, td {
   display: flex;
   align-items: center;
   flex-direction: column;
-  margin-right:2%;
+  margin-right: 2%;
   text-wrap: balance;
   text-align: center;
-  margin-left:2%;
+  margin-left: 2%;
 }
 
 .phalf p {
