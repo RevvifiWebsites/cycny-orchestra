@@ -43,16 +43,16 @@
 
     </div>
     <div id="head-content" style="height:65vh;">
-      <p style="font-size:60px;color:white;font-weight: 800;">News</p>
+      <p style="font-size:60px;color:white;font-weight: 800;">Latest News</p>
 
     </div>
     <div class="main-content"
       style="background-color: #fefdf4;display:flex;justify-content: center;margin-top:56vh;padding-bottom:100px;min-height:auto;height:auto;overflow:visible;flex-direction: column;align-items: center;">
-        <div
-          style="display:flex;flex-direction: row;justify-content:center;flex-wrap: wrap;padding-top:5px;padding-bottom:5px;width:80%;max-width:900px"
-          id="events">
-        
-        </div>
+      <div
+        style="display:flex;flex-direction: row;justify-content:center;flex-wrap: wrap;padding-top:40px;padding-bottom:5px;width:80%;max-width:900px"
+        id="events">
+
+      </div>
     </div>
 
     </div>
@@ -62,6 +62,43 @@
     </div>
 
   </main>
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js";
+    import { getFirestore, collection, doc, setDoc, getDoc, query, getDocs, deleteDoc } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyD4VyCY86vt6lIPtOH4IXCL0iSMsJl9KSU",
+      authDomain: "cycny-853d8.firebaseapp.com",
+      projectId: "cycny-853d8",
+      storageBucket: "cycny-853d8.firebasestorage.app",
+      messagingSenderId: "107987972415",
+      appId: "1:107987972415:web:f0ed37d7e30858bc31238a"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    async function loadData() {
+      const q = query(collection(db, "posts"));
+      const querySnapshot = await getDocs(q);
+      querySnapshot.forEach((doc) => {
+        const ddata = doc.data();
+        const created = new Date(ddata.created * 1000)
+
+        $("#events").append(`
+          <div class="event">
+            <img src="${ddata.image}"/>
+            <h1>${ddata.title}</h1>
+            <p style="margin-left:10px;margin-top:0;margin-bottom:0px;">${ddata.subtitle}</p>
+            <hr>
+            <p style="margin-left:10px;margin-top:0;margin-bottom:10px;font-size:13px;color:rgb(109, 109, 109)">${ddata.author} - ${created.getMonth() + 1}/${created.getDate()}/${created.getFullYear()}</p>
+          </div>
+          `)
+
+      });
+    }
+    loadData();
+  </script>
   <script src="./index.js"></script>
 </body>
 
