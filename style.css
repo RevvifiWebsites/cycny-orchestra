@@ -20,7 +20,7 @@
   transition-duration: 0.2s;
 }
 .event h1 {
-  width: 100%;
+  width: 95%;
     font-size: 30px;
     margin: 10px;
     margin-bottom: 2px;
@@ -410,4 +410,106 @@ td {
   #abtmain {
     width:40% !important;
   }
+  #head-title {
+    font-size:33px !important;
+    line-height:33px !important;
+  }
+  #head-title-2 {
+    font-size:37px !important;
+  }
+  #head-sub {
+    font-size:15px !important;
+  }
+  .navBar > p{
+    font-size:30px !important;
+  }
+  main > .main-content {
+    height:auto !important;
+    flex-direction: column !important;
+  }
+  #citems {
+    flex-direction: column;
+  }
+  .event h1 {
+    font-size:20px;
+    max-width:100%;
+    
+  }
+  #abtct {
+    width:90%;
+  }
+  #abtct p {
+    font-size:15px;
+  }
+  #abtheader {
+    font-size:40px !important;
+  }
+  .newshead h1 {
+    font-size:40px !important;
+  }
+  .newshead p {
+    font-size:15px !important;
+    max-width:80vw;
+  }
+  #content {
+    width:90% !important;
+  }
+  #content h1 {
+    font-size:38px !important;
+  }
+  #content h2 {
+    font-size: 19px !important
+  }
+  #content h3 {
+    font-size:15px !important
+  }
+  #events {
+    width:100% !important;
+  }
+  #mainnwscon {
+    width:100% !important;
+  }
+  #members {
+    width:90%;
+    flex-direction: column;
+  }
+  #abtmain {
+    margin-top:30vh;
+    width:90% !important;
+    height:16vh !important;
+  }
+  .cinp {
+    width:95%;
+  }
+  #memtitle {
+    font-size:40px !important;
+  }
+  .cinp p {
+    font-size:14px; 
+  }
+  #instructors {
+    flex-direction: column;
+    width:90%;
+  }
+  #memberscontent {
+    width:90% !important;
+  }
+  .cname {
+    font-size:21px !important;
+    font-weight: 700;
+  }
+  #abtimgmain {
+    width:90% !important;
+    height:70vh !important;
+  }
+  #abtimgmain img {
+    height:40vh !important;
+    width:100% !important;
+
+  }
+  #c p {
+    font-size:12px !important;
+  }
+
+
 }
