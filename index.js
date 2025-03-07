@@ -30,28 +30,28 @@ window.onload = function () {
     $("#mx").css("display", "block")
 
     $("#menu").animate({
-      width:200,
-      opacity:1,
+      width: 200,
+      opacity: 1,
     }, 500, function () {
       $("#menulinks").animate({
         opacity: 1
       }, 300)
     })
     $("#mx").animate({
-      opacity:1,
+      opacity: 1,
     }, 500)
   })
-  $("#mx").click(function() {
+  $("#mx").click(function () {
     $("#menulinks").animate({
       opacity: 0
-    }, 100, function() {
+    }, 100, function () {
       $("#menu").animate({
         width: 0,
         opacity: 0,
       }, 400)
       $("#mx").animate({
         opacity: 0,
-      }, 400, function() {
+      }, 400, function () {
         $("#menu").css("display", "none")
         $("#menulinks").css("display", "none")
       })
@@ -59,5 +59,5 @@ window.onload = function () {
 
 
   })
-  
+
 }
