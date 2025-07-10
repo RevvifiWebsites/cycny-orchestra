@@ -118,7 +118,9 @@
 #facultydiv {
   margin-top: 15px;
 }
-
+.navlink {
+  cursor: pointer;
+}
 html,
 body {
   margin: 0;
